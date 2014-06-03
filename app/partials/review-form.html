@@ -1,25 +1,22 @@
-<form name="reviewForm" class="form-horizontal">
-  <section class="row well live-preview">
+<form name="reviewForm" class="form-horizontal" ng-submit="reviewFormCtrl.addReview(reviewForm)">
+  <section class="row well live-preview" ng-show="reviewFormCtrl.book.isbn">
     <aside class="col-sm-3">
-      <a href="http://www.amazon.com/gp/product/0553593714">
-        <img src="http://images.amazon.com/images/P/0553593714.01.ZTZZZZZZ.jpg" alt="Cover of Book Title" class="full">
+      <a href="http://www.amazon.com/gp/product/{{reviewFormCtrl.book.isbn}}">
+        <img src="http://images.amazon.com/images/P/{{reviewFormCtrl.book.isbn}}.01.ZTZZZZZZ.jpg" alt="Cover of {{reviewFormCtrl.book.title}}" class="full">
       </a>
-      <p>5/5</p>
+      <p>{{reviewFormCtrl.book.rating}}/5</p>
     </aside>
 
     <div class="col-sm-9">
       <h3>
-        <a href="http://www.amazon.com/gp/product/0553593714">Book Title</a>
+        <a href="http://www.amazon.com/gp/product/{{reviewFormCtrl.book.isbn}}">{{reviewFormCtrl.book.title}}</a>
       </h3>
-      <cite class="text-muted">Written by Author</cite>
+      <cite class="text-muted">Written by {{reviewFormCtrl.book.author}}</cite>
       
-      <p>No review yet.</p>
+      <p>{{reviewFormCtrl.book.review}}</p>
 
-      <ul class="list-unstyled">
-        <li>
-          <span class="label label-primary">genre</span>
-        </li>
-      </ul>
+      <book-genres genres="reviewFormCtrl.book.genres"></book-genres>
+    
     </div>
   </section>
 
@@ -27,35 +24,35 @@
     <fieldset class="form-group">
       <label for="title" class="control-label col-sm-2">Title:</label>
       <span class="col-sm-9">
-        <input type="text" id="title" class="form-control" placeholder="Book Title" />
+        <input type="text" id="title" class="form-control" placeholder="Book Title" ng-model="reviewFormCtrl.book.title"/>
       </span>
     </fieldset>
 
     <fieldset class="form-group">
       <label for="isbn" class="control-label col-sm-2">ISBN:</label>
       <span class="col-sm-9">
-        <input type="text" id="isbn" class="form-control" maxLength="10" placeholder="ISBN-10" />
+        <input type="text" id="isbn" class="form-control" maxLength="10" placeholder="ISBN-10" ng-model="reviewFormCtrl.book.isbn"/>
       </span>
     </fieldset>
 
     <fieldset class="form-group">
       <label for="author" class="control-label col-sm-2">Author:</label>
       <span class="col-sm-9">
-        <input type="text" id="author" class="form-control" placeholder="Author's name" />
+        <input type="text" id="author" class="form-control" placeholder="Author's name" ng-model="reviewFormCtrl.book.author"/>
       </span>
     </fieldset>
 
     <fieldset class="form-group">
       <label for="review" class="control-label col-sm-2">Review:</label>
       <span class="col-sm-9">
-        <textarea id="review" class="form-control" cols="30" rows="3" placeholder="Book Review"></textarea>
+        <textarea id="review" class="form-control" cols="30" rows="3" placeholder="Book Review" ng-model="reviewFormCtrl.book.review"></textarea>
       </span>
     </fieldset>
 
     <fieldset class="form-group">
       <label for="rating" class="control-label col-sm-2">Rating:</label>
       <span class="col-sm-9">
-        <select class="form-control" id="rating" value="5">
+        <select class="form-control" id="rating" value="5" ng-model="reviewFormCtrl.book.rating">
           <option>5</option>
           <option>4</option>
           <option>3</option>
@@ -68,9 +65,9 @@
     <fieldset class="form-group">
       <label class="control-label col-sm-2">Genre:</label>
       <div class="genre">
-        <label for="genre" class="genre-label form-control">
-          <input type="checkbox" name="genre" id="genre" />
-          genre
+        <label for="{{genre}}" class="genre-label form-control" ng-repeat="genre in genres">
+          <input type="checkbox" name="genre" id="{{genre}}" ng-model="reviewFormCtrl.book.genres[genre]" />
+          {{genre}}
         </label>
       </div>
     </fieldset>
@@ -81,5 +78,4 @@
       </span>
     </fieldset>
   </div>
-
 </form>
