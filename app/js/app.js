@@ -16,7 +16,16 @@
       restrict: 'E',
       templateUrl: 'partials/book-genres.html'
     }
+  })
+
+  .directive('bookCover', function(){
+    return {
+      restrict: 'E',
+      templateUrl: 'partials/book-cover.html',
+      replace: true
+    }
   });
+
 
     var genres = [
       'business', 'computing', 'fable', 'fantasy', 'fiction', 'folklore', 'horror', 'humour', 
